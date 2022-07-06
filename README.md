@@ -1,2 +1,2 @@
-# sei36_p4_fe
+# sei36_project4
 Project 4 FrontEnd
