@@ -1,15 +1,16 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from 'dotenv'
+import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
+
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 app.get("/", (req: Request, res: Response) => {
-    res.send('Express + Typescript Server');
+    res.status(StatusCodes.OK).send('Express + Typescript Server '  + ReasonPhrases.OK);
 });
 
-app.listen(port, () => {
-    console.log("Server is up and running");
-})
+export default app;

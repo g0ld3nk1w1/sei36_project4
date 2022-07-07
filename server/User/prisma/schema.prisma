@@ -1,0 +1,28 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("LOCAL_POSTGRES_URL")
+}
+
+enum Role {
+    ADMIN
+    CONSUMER
+    INSTRUCTOR
+}
+
+model User {
+    id Int @id @default(autoincrement())
+    firstname String
+    lastname String
+    password String
+    email String
+    role Role[]
+    userToken User_Token[]
+}
+
+model User_Token{
+    user_id Int 
+    user User @relation( fields: [user_id], references: [id])
+    jwt String @id
+    expiry DateTime
+    device String
+}
