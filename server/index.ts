@@ -9,6 +9,9 @@ const app: Express = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
+const userController = require('./User/UserController');
+app.use("/user", userController);
+
 app.get("/", (req: Request, res: Response) => {
     res.status(StatusCodes.OK).send('Express + Typescript Server '  + ReasonPhrases.OK);
 });

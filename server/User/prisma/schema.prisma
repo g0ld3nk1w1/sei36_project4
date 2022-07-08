@@ -3,6 +3,10 @@ datasource db {
   url      = env("LOCAL_POSTGRES_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 enum Role {
     ADMIN
     CONSUMER
@@ -13,8 +17,9 @@ model User {
     id Int @id @default(autoincrement())
     firstname String
     lastname String
+    username String
     password String
-    email String
+    email String?
     role Role[]
     userToken User_Token[]
 }
@@ -24,5 +29,5 @@ model User_Token{
     user User @relation( fields: [user_id], references: [id])
     jwt String @id
     expiry DateTime
-    device String
+    device String?
 }
