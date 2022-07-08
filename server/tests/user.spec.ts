@@ -16,16 +16,27 @@ describe("App should be up", () => {
 });
 
 describe("Basic CRU on User", () => {
-  it.todo(
-    "Create user"
-    /*
-Paul Thomas
-luke.moore@anderson.org
-paulthmas
-e48ef76f
+  it("Create user", async () => {
+    const reqBody = {
+        firstname: "Paul",
+        lastname: "Thomas",
+        email:"luke.moore@anderson.org",
+        username: "paulthmas",
+        password: "e48ef76f",
+        role: ["CONSUMER"]
+    }
 
-*/
-  );
+    await request(app)
+    .post("/user")
+    .send(reqBody)
+    .expect(StatusCodes.ACCEPTED)
+    // .then( res => {
+    //     console.log(res.body);
+    //     // expect(res.body);
+    // })
+  });
+
+  it.todo("Create user failure scenario");
   it("Get user", async () => {
     const reqBody = { username: "Lcruz" };
     const resBody = {
@@ -40,11 +51,11 @@ e48ef76f
       },
     };
     await request(app)
-      .post("/user")
+      .get("/user")
       .send(reqBody)
       .expect(StatusCodes.ACCEPTED)
       .then((res) => {
-        console.log(res.body);
+        // console.log(res.body);
         expect(res.body).toMatchObject(resBody);
       });
   });
