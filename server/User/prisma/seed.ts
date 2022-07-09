@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 //Seed the User
 async function main() {
     const seed1 = await prisma.user.upsert({
-      where: {id: 1},
+      where: {username: "Lcruz"},
       update: {},
       create: {
             firstname: "Leilani",
@@ -17,8 +17,8 @@ async function main() {
     })
 
     const seed2 = await prisma.user.upsert({
-        where: {id: 2},
-        update: {},
+        where: {username: "callulas"},
+        update: {email: "kathlyn.cummerata@gmail.com"},
         create: {
             firstname: "Callum",
             lastname: "Douglas",
@@ -29,7 +29,7 @@ async function main() {
         },
     })
     const seed3 = await prisma.user.upsert({
-      where: {id: 109238450},
+      where: {username: "saraher"},
       update: {},
       create: {
           firstname: "Sarah",

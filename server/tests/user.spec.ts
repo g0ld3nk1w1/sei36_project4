@@ -2,6 +2,8 @@ import app from "../index";
 import request from "supertest";
 import { StatusCodes } from "http-status-codes";
 
+//So this really inserts into the DB. Theorectically should be a mocked thingy?
+
 describe("App should be up", () => {
   it("return fixed text on /", (done) => {
     request(app)
@@ -16,6 +18,8 @@ describe("App should be up", () => {
 });
 
 describe("Basic CRU on User", () => {
+
+  /*
   it("Create user", async () => {
     const reqBody = {
         firstname: "Paul",
@@ -35,21 +39,20 @@ describe("Basic CRU on User", () => {
     //     // expect(res.body);
     // })
   });
+  */
 
   it.todo("Create user failure scenario");
   it("Get user", async () => {
     const reqBody = { username: "Lcruz" };
     const resBody = {
-      user: {
         firstname: "Leilani",
         lastname: "Cruz",
         role: ["ADMIN"],
         password: "abc123",
         username: "Lcruz",
         email: null,
-        id: 3,
-      },
-    };
+        id: 1,
+      };
     await request(app)
       .get("/user")
       .send(reqBody)
@@ -60,5 +63,22 @@ describe("Basic CRU on User", () => {
       });
   });
 
-  it.todo("Update user");
+  it("Update user if username exists PUT request", async () => {
+    const reqBody = {
+      username: "callulas",
+      email: "douglas.callum@gmail.com"
+    };
+    const resBody = {};
+    await request(app)
+    .put("/user")
+    .send(reqBody)
+    .expect(StatusCodes.OK)
+    .then(res => {
+      const {body} = res;
+      expect(body.email).toBe("douglas.callum@gmail.com");
+      expect(body.lastname).toBe("Douglas");
+    }).catch(err => console.log(err));
+  });
+
+//delete Object.[]
 });

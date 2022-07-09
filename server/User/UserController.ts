@@ -10,18 +10,18 @@ const prisma = new PrismaClient();
 
 router.get("/", async (req, res) => {
   const { body } = req;
-
   try {
     const user = await prisma.user.findFirstOrThrow({
       where: body,
     });
-    res.status(StatusCodes.ACCEPTED).send({user})
+    res.status(StatusCodes.ACCEPTED).send(user)
   } catch (err) {
     console.log("User GET error ", err)
     res.status(StatusCodes.BAD_REQUEST).send({ message: err });
   }
 });
 
+// Route always creates
 router.post("/", async (req, res) => {
     const {body} =  req;
     try {
@@ -29,10 +29,27 @@ router.post("/", async (req, res) => {
             data: body});
         res.status(StatusCodes.ACCEPTED).send(create);
     } catch (err){
-        console.log("User PUT error ", err);
+        console.log("User POST error ", err);
         res.status(StatusCodes.BAD_REQUEST).send({ message: err });
     }
 })
+
+// Route only updates
+router.put("/", async (req, res) => {
+    const {body} = req;
+    try {
+        const upsert = await prisma.user.update({
+          where: {
+            username: body.username,
+          },
+          data: body,
+        })
+        res.status(StatusCodes.OK).send(upsert);
+    } catch (err){
+        console.log("User PUT error ", err);
+        res.status(StatusCodes.BAD_REQUEST).send({ message: err });
+    }
+});
 
 
 module.exports = router;
