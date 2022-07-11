@@ -3,12 +3,10 @@ import { PrismaClient } from '@prisma/client'
 import { StatusCodes } from 'http-status-codes';
 //create validator
 
-
-const router = express.Router();
+export const userController = express.Router();
 const prisma = new PrismaClient();
 
-
-router.get("/", async (req, res) => {
+userController.get("/", async (req, res) => {
   const { body } = req;
   try {
     const user = await prisma.user.findFirstOrThrow({
@@ -22,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 // Route always creates
-router.post("/", async (req, res) => {
+userController.post("/", async (req, res) => {
     const {body} =  req;
     try {
         const create = await prisma.user.create({
@@ -35,7 +33,7 @@ router.post("/", async (req, res) => {
 })
 
 // Route only updates
-router.put("/", async (req, res) => {
+userController.put("/", async (req, res) => {
     const {body} = req;
     try {
         const upsert = await prisma.user.update({
@@ -52,4 +50,4 @@ router.put("/", async (req, res) => {
 });
 
 
-module.exports = router;
+// module.exports = router;
