@@ -20,7 +20,7 @@ eClassController.get("/", async (req, res) => {
     }
     if(search !== null){
         res.status(StatusCodes.OK).send({message: "Active Class or classes found", class: search});
-    } else res.status(StatusCodes.ACCEPTED).send({message: "No active class found"});
+    } else res.status(StatusCodes.ACCEPTED).send({message: "No class found"});
   } catch (err) {
     res.status(StatusCodes.BAD_REQUEST).send({ message: err });
   }

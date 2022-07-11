@@ -8,9 +8,11 @@ orderController.get("/:id", async (req, res) => {
     const {id} = req.params;
     try {
         const order = await Order.findById(id);
-        res.status(StatusCodes.OK).send({message: "Order Found", order: order});
+        if(order !== null){
+            res.status(StatusCodes.OK).send({message: "Order Found", order: order});
+        } else throw new Error("Order ID not found");
     } catch (err){
-        res.status(StatusCodes.BAD_REQUEST).send({message: "Failed to get Order" + err});
+        res.status(StatusCodes.BAD_REQUEST).send({message: "Failed to get Order, " + err});
     }
 });
 
@@ -32,7 +34,9 @@ orderController.put("/", async (req, res) => {
         if(!body.id) return res.status(StatusCodes.BAD_REQUEST).send({message: "Order ID is required for updates"});
 
         const order = await Order.findByIdAndUpdate(body.id,body,{new:true});
+        if(order !== null){
         res.status(StatusCodes.OK).send({message: "Order updated", order: order});
+        }else throw new Error("Order ID not found")
     } catch (err){
         res.status(StatusCodes.BAD_REQUEST).send({message: "Failed to upddate Order. See Error: " + err});
     }
