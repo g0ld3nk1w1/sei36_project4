@@ -10,7 +10,7 @@ const orderSchema = new Schema({
         inputNmaes: [String],
         status: {type: String, enum: ["On Waiting List", "Enrolled", "Pending"]}
     }],
-    orderStatus: {type:String , enum: ["Fulfilled", "New", "In Progres", "Partially Fulfilled", "Canceled", "Refunded", "Void", "Pending Payment",
+    orderStatus: {type:String , enum: ["Draft","Fulfilled", "New", "In Progress", "Partially Fulfilled", "Canceled", "Refunded", "Void", "Pending Payment",
 "Pending Confirmation"], default: "New"},
     userId: Number,
     cost: mongoose.Types.Decimal128,

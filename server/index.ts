@@ -25,10 +25,10 @@ catch (err){
     console.log(err);
 }
 
-app.use("/user", userController);
-app.use("/product", productController);
-app.use("/class", eClassController)
-app.use("/order", orderController)
+app.use("/api/user", userController);
+app.use("/api/product", productController);
+app.use("/api/class", eClassController)
+app.use("/api/order", orderController)
 
 app.get("/", (req: Request, res: Response) => {
     res.status(StatusCodes.OK).send('Express + Typescript Server '  + ReasonPhrases.OK);

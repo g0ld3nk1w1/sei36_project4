@@ -15,7 +15,7 @@ const eClassSchema = new Schema({
     }],
     instructor: Number,
     materials: [{type: Schema.Types.ObjectId, ref: 'Product', default:[]}],
-    cost: {type: mongoose.Types.Decimal128, default: 0.0},
+    cost: {type: Number, default: 0.0},
     isActive: Boolean,
     isDisplayed: Boolean,
     duration: Number,
