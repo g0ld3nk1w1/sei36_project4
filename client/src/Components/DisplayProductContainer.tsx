@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IProduct, Product } from "./Product";
+import { IProduct, Product } from "./ProductCard";
 
 //Size each card here via columns and rows
 export const ProductContainer = () => {

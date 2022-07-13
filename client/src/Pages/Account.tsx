@@ -1,5 +1,7 @@
 import axios from "axios";
-import { BaseSyntheticEvent, ReactHTML, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROLE } from "../Components/RoleContext";
 
 interface IUser {
   firstname: string,
@@ -10,10 +12,17 @@ interface IUser {
   role: string
 }
 
+enum AccountState {
+  CREATE,
+  LOGIN,
+  LOGINFAIL
+}
+
 
 //Account creation/Login Page
-export const Account = () => {
-  const [state, setState] = useState("login");
+export const Account = (props: {roleFN: Function}) => {
+  const nav = useNavigate();
+  const [state, setState] = useState(AccountState.LOGIN);
   const [userObj, setUserObj] = useState({
     firstname: "",
     lastname: "",
@@ -26,23 +35,30 @@ export const Account = () => {
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(userObj.role === ""){
-      userObj.role = "CONSUMER";
+      userObj.role = ROLE.CONSUMER;
       setUserObj(userObj);
     } 
     axios.post("/api/user", userObj).then((res) => {
       alert("Account Creation Succes, Try Logging in!");
-      setState("login");
+      setState(AccountState.LOGIN);
     }).catch(err => {
       alert("Account Creation Failed! Please try again!");
     });
   };
   const handleLogin = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(userObj);
+    axios.post("/api/user/search", {
+      username: userObj.username,
+      password: userObj.password
+    }).then(res => {
+      const {role} = res.data;
+      props.roleFN(role[0]);
+      nav("/");
+    }).catch(err => {setState(AccountState.LOGINFAIL)})
     //JWT + redirect to main
   };
 
-  if (state === "create") {
+  if (state === AccountState.CREATE) {
     return (
       <div className="columns is-centered">
       <form onSubmit={handleSubmit}>
@@ -84,7 +100,7 @@ export const Account = () => {
               <div className="control">
               <label className="label">Last Name</label>
                 <input
-                  className="input "
+                  className="input"
                   type="text"
                   placeholder="Last Name"
                   id="lastName"
@@ -157,7 +173,7 @@ export const Account = () => {
           <div className="control">
             <button
               className="button is-link is-light is-rounded"
-              onClick={() => setState("login")}
+              onClick={() => setState(AccountState.LOGIN)}
             >
               I already have an account!
             </button>
@@ -170,8 +186,9 @@ export const Account = () => {
   }
 
   else return (
+    <div className="columns is-centered">
+    <div className="box">
     <form onSubmit={handleLogin}>
-      <div className="container">
         <div className="columns is-centered">
           <div className="column is-narrow">
             <div className="field">
@@ -204,7 +221,11 @@ export const Account = () => {
         </div>
         </div>
 
-        <div className="columns is-centered">
+        {state === AccountState.LOGINFAIL ? (<div className="columns is-centered is-vcentered">
+          <div className="notification is-danger"> Login Failed. Please check credentials
+          </div> </div>):''}
+
+        <div className="columns is-centered is-vcentered">
         <div className="field is-grouped">
           <div className="control">
             <button type="submit"
@@ -215,14 +236,15 @@ export const Account = () => {
           <div className="control">
             <button
               className="button is-link is-light is-rounded"
-              onClick={() => setState("create")}
+              onClick={() => setState(AccountState.CREATE)}
             >
               Sign Up
             </button>
           </div>
           </div>
         </div>
-        </div>
     </form>
+    </div>
+    </div>
   )
 };

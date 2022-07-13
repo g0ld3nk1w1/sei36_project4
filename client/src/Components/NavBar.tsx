@@ -1,9 +1,11 @@
-//Meant to be megamenu see if you can do it.
 
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import { UserContext } from "./RoleContext";
 
 export const NavBar = () => {
   const nav = useNavigate();
+  const loggedIn = useContext(UserContext);
   return (
     <nav className="navbar block">
       <div className="navbar-brand">
@@ -17,15 +19,17 @@ export const NavBar = () => {
       </div>
       </div>
       </div>
+      <p className="title is-3">FUN LEARNING WITH KIDS</p>
       <div className="navbar-end">
-      <button className="navbar-item button is-primary" onClick={() => { nav("/login")}}>Login / Sign Up</button>
-      <div className="navbar-item has-dropdown is-hoverable is-mega">
+      {!loggedIn ?
+      (<button className="navbar-item button is-primary" onClick={() => { nav("/login")}}>Login / Sign Up</button>) :
+      (<div className="navbar-item has-dropdown is-hoverable is-mega">
       <button className="navbar-item button is-primary">Profile </button>
       <div className="navbar-dropdown"> 
       <Link to="/" className="navbar-item">Orders</Link>
       <Link to="/" className="navbar-item">Logout</Link>
       </div>
-      </div>
+      </div>)}
       </div>
       
     </nav>

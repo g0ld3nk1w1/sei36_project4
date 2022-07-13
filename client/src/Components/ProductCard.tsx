@@ -1,7 +1,9 @@
 //Singular Card showing product
 //Must exist within a container
 
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ROLE, UserContext } from "./RoleContext";
 
 export interface IProduct {
     name: string,
@@ -12,6 +14,8 @@ export interface IProduct {
     isDisplayed: boolean
 }
 export const Product = (props: {item : IProduct}) => {
+  const userRole = useContext(UserContext);
+  const isUserAI = userRole === ROLE.ADMIN || userRole === ROLE.INSTRUCTOR;
  return (
 <div className="card">
   <div className="card-image">
@@ -27,13 +31,15 @@ export const Product = (props: {item : IProduct}) => {
       </div>
     </div>
 
-    <div className="content">
+    {userRole? 
+    (<div className="content">
         <p>Price: ${props.item.cost}</p>
       <br></br>
-    </div>
+    </div>) :""}
     <footer className="card-footer">
-    <Link to= "/" className="card-footer-item">Edit</Link>
-    <Link to= "/"className="card-footer-item">Details</Link>
+    {isUserAI? 
+    <Link to= "/" className="card-footer-item">Edit</Link> : "" }
+    <Link to= "/" className="card-footer-item">Details</Link>
     <Link to= "/" className="card-footer-item">Add to Cart</Link>
     </footer>
   </div>

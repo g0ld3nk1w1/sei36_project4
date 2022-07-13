@@ -1,7 +1,9 @@
 //Singular Card for Class
 
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { EnumType } from "typescript";
+import { ROLE, UserContext } from "./RoleContext";
 
 export interface IClass {
     name: string,
@@ -18,6 +20,8 @@ export interface IClass {
     enrollmentNum: number
 }
 export const EClass = (props: {item : IClass}) => {
+  const userRole = useContext(UserContext);
+  const isUserAI = userRole === ROLE.ADMIN || userRole === ROLE.INSTRUCTOR;
  return (
 <div className="card">
   <div className="card-image">
@@ -33,13 +37,13 @@ export const EClass = (props: {item : IClass}) => {
         <p className="subtitle is-6">current enrollment capacity: {props.item.enrollmentNum}</p>
       </div>
     </div>
-
-    <div className="content">
+    {userRole? 
+    (<div className="content">
         <p>Price: ${props.item.cost}</p>
       <br></br>
-    </div>
+    </div>):""}
     <footer className="card-footer">
-    <Link to= "/" className="card-footer-item">Edit</Link>
+    {isUserAI? <Link to= "/" className="card-footer-item">Edit</Link> : ""}
     <Link to= "/"className="card-footer-item">Details</Link>
     <Link to= "/" className="card-footer-item">Add to Cart</Link>
     </footer>

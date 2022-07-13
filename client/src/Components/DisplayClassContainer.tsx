@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { EClass, IClass } from "./Class";
+import { EClass, IClass } from "./ClassCard";
 
 //Pull and maps out all relevant class 
 

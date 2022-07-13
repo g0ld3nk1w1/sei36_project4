@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 export const userController = express.Router();
 const prisma = new PrismaClient();
 
-userController.get("/", async (req, res) => {
+userController.post("/search", async (req, res) => {
   const { body } = req;
   try {
     const user = await prisma.user.findFirstOrThrow({
