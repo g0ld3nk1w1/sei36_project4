@@ -28,12 +28,12 @@ export const Product = (props: {item : IProduct}) => {
     </div>
 
     <div className="content">
-        <p>Cost: ${props.item.cost}</p>
+        <p>Price: ${props.item.cost}</p>
       <br></br>
     </div>
     <footer className="card-footer">
     <Link to= "/" className="card-footer-item">Edit</Link>
-    <Link to= "/"className="card-footer-item">Wishlist</Link>
+    <Link to= "/"className="card-footer-item">Details</Link>
     <Link to= "/" className="card-footer-item">Add to Cart</Link>
     </footer>
   </div>

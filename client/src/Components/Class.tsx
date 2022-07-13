@@ -5,7 +5,7 @@ import { EnumType } from "typescript";
 
 export interface IClass {
     name: string,
-    imgurl: string[],
+    images: string[],
     min: number,
     max: number,
     isActive: boolean,
@@ -22,7 +22,7 @@ export const EClass = (props: {item : IClass}) => {
 <div className="card">
   <div className="card-image">
     <figure className="image is-5by3">
-      <img src={props.item.imgurl[0]} alt="image of class"/>
+      <img src={props.item.images[0]} alt="image of class"/>
     </figure>
   </div>
   <div className="card-content">
@@ -35,11 +35,12 @@ export const EClass = (props: {item : IClass}) => {
     </div>
 
     <div className="content">
-        <p>Cost: ${props.item.cost}</p>
+        <p>Price: ${props.item.cost}</p>
       <br></br>
     </div>
     <footer className="card-footer">
     <Link to= "/" className="card-footer-item">Edit</Link>
+    <Link to= "/"className="card-footer-item">Details</Link>
     <Link to= "/" className="card-footer-item">Add to Cart</Link>
     </footer>
   </div>
