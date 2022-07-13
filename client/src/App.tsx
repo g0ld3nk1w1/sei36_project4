@@ -6,7 +6,7 @@ import { Landing } from './Pages/Landing';
 
 function App() {
   return (
-    <div className="App">
+    <div className="column App">
       <BrowserRouter>
       <NavBar />
       <Routes>

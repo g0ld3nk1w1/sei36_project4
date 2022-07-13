@@ -22,14 +22,13 @@ const eClassSchema = new Schema({
     durationUnit: {enum: ["Hours", "Days", "Minutes"]},
     classDates: [{
         startDate: Date,
-        endDate: Date,
-        repeat: String,
-        status: {enum: ["Confirmed", "Canceled", "At Maximum", "Pending Minimum"]}
+        endDate: Date
     }],
     registrationDate: Date,
     closingDate: Date,
     conditions: String,
-    description: String
+    description: String,
+    status: {enum: ["Confirmed", "Canceled", "At Maximum", "Pending Minimum"]}
 },{
     toJSON: {virtuals: true},
     toObject: {virtuals: true}

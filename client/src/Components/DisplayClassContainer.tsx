@@ -17,12 +17,12 @@ export const ClassContainer = () => {
     <div className="columns is-narrow">
         <div className="column">
             <p className="title block is-vcentered"> Classes</p>
-   <div className="columns is-vcentered">
+   <div className="columns is-vcentered is-multiline">
     {classList
     .filter(ele => ele.isDisplayed === true)
     .map((ele : IClass, i) => {
-    return (<div className="column is-3">
-    <EClass item={ele} key ={i}/>
+    return (<div className="column is-3" key={i}>
+    <EClass item={ele}/>
     </div>)})}
   </div>
   </div>

@@ -15,12 +15,12 @@ export const ProductContainer = () => {
     <div className="columns is-narrow">
         <div className="column">
             <p className="title block is-vcentered"> Products</p>
-   <div className="columns is-vcentered">
+   <div className="columns is-vcentered is-multiline">
     {allProducts
     .filter(ele => ele.isDisplayed === true)
     .map((ele : IProduct, i) => {
     return (
-    <div className="column is-3"> <Product item={ele} key ={i}/> </div>)})}
+    <div className="column is-3" key={i}> <Product item={ele}/> </div>)})}
   </div>
   </div>
   </div>
