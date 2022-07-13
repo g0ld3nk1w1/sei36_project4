@@ -19,7 +19,7 @@ const eClassSchema = new Schema({
     isActive: Boolean,
     isDisplayed: Boolean,
     duration: Number,
-    durationUnit: {enum: ["Hours", "Days", "Minutes"]},
+    durationUnit: {type:String, enum: ["Hours", "Days", "Minutes"]},
     classDates: [{
         startDate: Date,
         endDate: Date
@@ -28,7 +28,7 @@ const eClassSchema = new Schema({
     closingDate: Date,
     conditions: String,
     description: String,
-    status: {enum: ["Confirmed", "Canceled", "At Maximum", "Pending Minimum"]}
+    status: {type: String, enum: ["Confirmed", "Canceled", "At Maximum", "Pending Minimum"], default: "Pending Minimum"}
 },{
     toJSON: {virtuals: true},
     toObject: {virtuals: true}

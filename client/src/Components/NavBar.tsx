@@ -18,7 +18,7 @@ export const NavBar = () => {
       </div>
       </div>
       <div className="navbar-end">
-      <button className="navbar-item button is-primary" onClick={() => { nav("/login")}}>Login/Sign Up</button>
+      <button className="navbar-item button is-primary" onClick={() => { nav("/login")}}>Login / Sign Up</button>
       <div className="navbar-item has-dropdown is-hoverable is-mega">
       <button className="navbar-item button is-primary">Profile </button>
       <div className="navbar-dropdown"> 
