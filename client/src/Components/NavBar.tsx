@@ -1,11 +1,12 @@
 
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
-import { UserContext } from "./RoleContext";
+import { ROLE, UserContext } from "./RoleContext";
 
 export const NavBar = () => {
   const nav = useNavigate();
   const loggedIn = useContext(UserContext);
+  const isUserAI = loggedIn === ROLE.ADMIN || loggedIn === ROLE.INSTRUCTOR;
   return (
     <nav className="navbar block">
       <div className="navbar-brand">
@@ -18,6 +19,7 @@ export const NavBar = () => {
       <Link to="/product" className="navbar-item">Products</Link>
       </div>
       </div>
+      {isUserAI ? <Link to="/create" className="navbar-item">Create</Link> : ""}
       </div>
       <p className="title is-3">FUN LEARNING WITH KIDS</p>
       <div className="navbar-end">
