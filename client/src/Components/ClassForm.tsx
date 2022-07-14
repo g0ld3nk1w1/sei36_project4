@@ -1,5 +1,7 @@
-import { useState } from "react";
+import axios from "axios";
+import { BaseSyntheticEvent, useState } from "react";
 import DateTimePicker from 'react-datetime-picker';
+import { useNavigate } from "react-router-dom";
 import { EClass } from "./ClassCard";
 
 enum Dunit {
@@ -30,12 +32,50 @@ export const ClassForm = () => {
     conditions: ""
   });
 
+  const [preview, setPreview] = useState(false);
+  const [override, setOverride] = useState({
+    registrationDate: "",
+    closingDate: "",
+    classDate: [{
+        startDate: "",
+        endDate: "",
+    }],
+  })
+  const nav = useNavigate();
 
+  const handlePreview = (event: React.MouseEvent) =>{
+    event.preventDefault();
+    setOverride({
+      registrationDate: classDraft.registrationDate.toISOString(),
+      closingDate: classDraft.closingDate.toISOString(),
+      classDate: [{
+          startDate: classDraft.classDate[0].startDate.toISOString(),
+          endDate: classDraft.classDate[0].endDate.toISOString(),
+      }],
+    })
+    setPreview(true);
+  }
+
+  const resetPreview = (event: BaseSyntheticEvent) =>{
+    event.preventDefault();
+    setPreview(false)
+  }
+
+  const handleFormSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(classDraft)
+    axios.post("/class",{
+      ...classDraft,
+      isDisplayed: true
+    }).then( res => {alert("Class Published!"); nav("/class")})
+    .catch(err => alert("Failed to create class!"));
+  }
+  
   return (
     <>
       <div className="column">
         <section className="hero box">
-          <form>
+          <form onSubmit={handleFormSubmit}>
           <div className="columns">
           <div className="column">
             <div className="field">
@@ -45,7 +85,7 @@ export const ClassForm = () => {
                   className="input"
                   type="text"
                   placeholder="Unique Class Name"
-                  onChange={(e) => {classDraft.name = e.target.value}}
+                  onChange={(e) => {classDraft.name = e.target.value;resetPreview(e)}}
                 />
               </div>
             </div>
@@ -58,7 +98,7 @@ export const ClassForm = () => {
                   className="input"
                   type="text"
                   placeholder="Input link to hosted image here"
-                  onChange={(e) => { classDraft.images = [e.target.value]}}
+                  onChange={(e) => { classDraft.images = [e.target.value];resetPreview(e)}}
                 />
               </div>
             </div>
@@ -73,7 +113,7 @@ export const ClassForm = () => {
                     <textarea
                       className="textarea"
                       placeholder="Description about the class"
-                      onChange={(e) => { classDraft.description = e.target.value}}
+                      onChange={(e) => { classDraft.description = e.target.value;resetPreview(e)}}
                     />
                   </div>
                 </div>
@@ -85,7 +125,7 @@ export const ClassForm = () => {
                     <textarea
                       className="textarea"
                       placeholder="Any special conditions for the class"
-                      onChange={(e) => { classDraft.conditions = e.target.value}}
+                      onChange={(e) => { classDraft.conditions = e.target.value;resetPreview(e)}}
                     />
                   </div>
                 </div>
@@ -100,7 +140,7 @@ export const ClassForm = () => {
           <div className="field is-narrow" >
             <div className="control">
             <input className="input" type="number" min={0} 
-            onChange={(e) => { classDraft.min = Number.parseInt(e.target.value)}}></input>
+            onChange={(e) => { classDraft.min = Number.parseInt(e.target.value);resetPreview(e)}}></input>
             </div>
             </div></div>
 
@@ -112,7 +152,7 @@ export const ClassForm = () => {
           <div className="field is-narrow">
             <div className="control">
             <input className="input" type="number" min={0}
-            onChange={(e) => { classDraft.max = Number.parseInt(e.target.value)}}></input>
+            onChange={(e) => { classDraft.max = Number.parseInt(e.target.value);resetPreview(e)}}></input>
             </div>
             </div></div>
         </div>
@@ -125,7 +165,7 @@ export const ClassForm = () => {
           <div className="field is-narrow">
             <div className="control">
             <input className="input" type="number" min={0}
-            onChange={(e) => { classDraft.duration = Number.parseInt(e.target.value)}}></input>
+            onChange={(e) => { classDraft.duration = parseFloat(e.target.value);resetPreview(e)}}></input>
             </div>
             </div>
             </div>
@@ -137,7 +177,7 @@ export const ClassForm = () => {
           <div className="field ">
             <div className="control">
             <div className="select is-fullwidth">
-            <select onChange={e => classDraft.durationUnit = e.currentTarget.value}>
+            <select onChange={e => {classDraft.durationUnit = e.currentTarget.value;resetPreview(e)}}>
                     <option>Select unit</option>
                     <option value={Dunit.HOURS}>Hours</option>
                     <option value={Dunit.DAYS}>Days</option>
@@ -195,9 +235,9 @@ export const ClassForm = () => {
               <div className="control">
                 <input
                   className="input"
-                  type="text"
+                  type="number" step={0.01}
                   placeholder="Input price e.g. 9.99"
-                  onChange={(e) => {classDraft.cost = Number.parseInt(e.target.value)}}
+                  onChange={(e) => {classDraft.cost = parseFloat(e.target.value);resetPreview(e)}}
                 />
               </div>
             </div>
@@ -215,11 +255,11 @@ export const ClassForm = () => {
 
             <div className="field is-grouped is-grouped-right ">
               <div className="control">
-                <button className="button is-link is-light">Preview</button>
+                <button className="button is-link is-light" onClick={(e) => handlePreview(e)}>Preview</button>
               </div>
-              <div className="control">
+              {/* <div className="control">
                 <button className="button is-link is-light">Save</button>
-              </div>
+              </div> */}
               <div className="control">
                 <button type="submit" className="button is-link is-light">
                   Publish
@@ -231,10 +271,9 @@ export const ClassForm = () => {
       </div>
       <div className="column">
         <p className="title has-text-centered">Preview</p>
-        <section className="hero">
-          <div className="hero-body"></div>
-          {/* <EClass item={{...classDraft, enrollmentNum:0}}/> */}
-        </section>
+        <div className="columns is-centered">
+          {preview ? <EClass item={{...classDraft, ...override ,enrollmentNum:0, }}/> : ""} 
+        </div>
       </div>
     </>
   );

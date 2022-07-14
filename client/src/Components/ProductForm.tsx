@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, {useState } from "react";
+import React, {BaseSyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Product } from "./ProductCard";
 
 export const ProductForm = () => {
@@ -10,13 +11,15 @@ export const ProductForm = () => {
         cost: 0.0
     });
     const [preview, setPreview] = useState(false);
+    const nav = useNavigate();
 
   const handleFormSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post("/api/product",{
+    console.log(prodDraft)
+    axios.post("/product",{
       ...prodDraft,
       isDisplayed: true
-    })
+    }).then( res => {alert("Created!"); nav("/product")})
     .catch(err => alert("Failed to create product!"));
   }
 
@@ -25,6 +28,10 @@ export const ProductForm = () => {
     setPreview(true);
   }
 
+  const resetPreview = (event: BaseSyntheticEvent) =>{
+    event.preventDefault();
+    setPreview(false)
+  }
   return (
     <>
       <div className="column">
@@ -37,7 +44,7 @@ export const ProductForm = () => {
                   className="input"
                   type="text"
                   placeholder="Unique Product Name"
-                  onChange={(e) => {prodDraft.name = e.target.value}}
+                  onChange={(e) => {prodDraft.name = e.target.value; resetPreview(e)}}
                 />
               </div>
             </div>
@@ -49,7 +56,7 @@ export const ProductForm = () => {
                   className="input"
                   type="text"
                   placeholder="Input link to hosted image here"
-                  onChange={(e) => { prodDraft.imgurl = [e.target.value]}}
+                  onChange={(e) => { prodDraft.imgurl = [e.target.value]; resetPreview(e)}}
                 />
               </div>
             </div>
@@ -58,9 +65,9 @@ export const ProductForm = () => {
               <div className="control">
                 <input
                   className="input"
-                  type="text"
+                  type="number" step={0.01}
                   placeholder="Input price e.g. 9.99"
-                  onChange={(e) => {prodDraft.cost = Number.parseInt(e.target.value)}}
+                  onChange={(e) => {prodDraft.cost = parseFloat(e.target.value);resetPreview(e)}}
                 />
               </div>
             </div>
@@ -69,7 +76,7 @@ export const ProductForm = () => {
               <label className="label">Quantity</label>
               <div className="control">
               <input className="input" type="number" min={0}
-            onChange={(e) => { prodDraft.qty = Number.parseInt(e.target.value)}}></input>
+            onChange={(e) => { prodDraft.qty = Number.parseInt(e.target.value);resetPreview(e)}}></input>
               </div>
             </div>
 

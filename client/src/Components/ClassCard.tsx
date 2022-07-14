@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { EnumType } from "typescript";
 import { ROLE, UserContext } from "./RoleContext";
+import { format, parseISO} from 'date-fns'
 
 export interface IClass {
     name: string,
@@ -13,9 +14,9 @@ export interface IClass {
     isActive: boolean,
     isDisplayed: boolean,
     duration: number,
-    durationUnit: EnumType,
-    registrationDate: Date,
-    closingDate: Date,
+    // durationUnit: EnumType,
+    registrationDate: string,
+    closingDate: string,
     cost: number,
     enrollmentNum: number
 }
@@ -34,7 +35,8 @@ export const EClass = (props: {item : IClass}) => {
       <div className="media-content">
         <p className="title is-4">{props.item.name}</p>
         <p className="subtitle is-6">minimum sign ups to start class: {props.item.min}</p>
-        <p className="subtitle is-6">current enrollment capacity: {props.item.enrollmentNum}</p>
+        <p className="subtitle is-6">current enrollment: {props.item.enrollmentNum}</p>
+        <p className="subtitle is-6">registration closing date: {format(parseISO(props.item.closingDate), 'PPp')}</p>
       </div>
     </div>
     {userRole? 
