@@ -99,7 +99,7 @@ export const ProductForm = () => {
       <div className="column">
         <p className="title has-text-centered">Preview</p>
         <div className="columns is-centered">
-          {preview ? <Product item={{...prodDraft,isActive: true, isDisplayed: true, _id:"1234"}}/>: ""}
+          {preview ? <Product item={{...prodDraft, _id:"123"}}/>: ""}
           </div>
       </div>
     </>

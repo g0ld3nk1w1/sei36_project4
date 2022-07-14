@@ -9,7 +9,7 @@ export const ClassContainer = () => {
   const [classList, setClassList] = useState(Array<IClass>);
   //Pull and maps out all relevant products
   useEffect(() => {
-    axios.get("/class")
+    axios.get("/class/display")
     .then(res => setClassList(res.data.class));
   },[])
 
@@ -19,7 +19,6 @@ export const ClassContainer = () => {
             <p className="title block is-vcentered"> Classes</p>
    <div className="columns is-vcentered is-multiline">
     {classList
-    .filter(ele => ele.isDisplayed === true)
     .map((ele : IClass, i) => {
     return (<div className="column is-3" key={i}>
     <EClass item={ele}/>

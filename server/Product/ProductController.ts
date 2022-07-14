@@ -4,8 +4,21 @@ import Product from './ProductModel';
 
 export const productController =  express.Router();
 
-//should GET only retrieve active records?
-productController.get("/",async (req, res) => {
+productController.get("/display", async (req, res)=> {
+    try {
+       const search = await Product.find({isDisplayed: true});
+      if(search.length === 0){
+          return res.status(StatusCodes.ACCEPTED).send({message: "No active Product found"});
+      }
+      if(search !== null){
+          res.status(StatusCodes.OK).send({message: "Active Product or products found", product: search});
+      } else res.status(StatusCodes.ACCEPTED).send({message: "No Product found"});
+    } catch (err) {
+      res.status(StatusCodes.BAD_REQUEST).send({ message: err });
+    }
+})
+
+productController.post("/search",async (req, res) => {
     const {body} = req;
     try {
         let ret;

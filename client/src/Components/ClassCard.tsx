@@ -18,7 +18,8 @@ export interface IClass {
     registrationDate: string,
     closingDate: string,
     cost: number,
-    enrollmentNum: number
+    enrollmentNum?: number,
+    _id?: string
 }
 export const EClass = (props: {item : IClass}) => {
   const userRole = useContext(UserContext);
@@ -46,7 +47,7 @@ export const EClass = (props: {item : IClass}) => {
     </div>):""}
     <footer className="card-footer">
     {isUserAI? <Link to= "/" className="card-footer-item">Edit</Link> : ""}
-    <Link to= "/"className="card-footer-item">Details</Link>
+    <Link to= {`/class/${props.item._id}`} className="card-footer-item">Details</Link>
     <Link to= "/" className="card-footer-item">Add to Cart</Link>
     </footer>
   </div>

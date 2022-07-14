@@ -7,6 +7,7 @@ import { ProductForm } from './Components/ProductForm';
 import { ROLE, UserContext } from './Components/RoleContext';
 import { Account } from './Pages/Account';
 import { Creation } from './Pages/Creation';
+import { DetailPage } from './Pages/Detail';
 import { Landing } from './Pages/Landing';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing />}/>
         <Route path='/class' element={<Landing toggle={"class"} />}/>
+        {/* <Route path='/class/:id' element={role? <DetailPage toggle={"class"}/> : <Account roleFN={setRole} />} /> */}
         <Route path='/product' element={<Landing toggle={"product"}/>}/>
         <Route path="/login" element={<Account roleFN={setRole}/>} />
         <Route path="/create" element={isUserAI? <Creation /> : <Landing />}>

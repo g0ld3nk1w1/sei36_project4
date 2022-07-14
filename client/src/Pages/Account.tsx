@@ -58,6 +58,11 @@ export const Account = (props: {roleFN: Function}) => {
     //JWT + redirect to main
   };
 
+  const handlePasswordReset = (event: React.MouseEvent) => {
+    event.preventDefault();
+    
+  }
+
   if (state === AccountState.CREATE) {
     return (
       <div className="columns is-centered">
@@ -236,13 +241,21 @@ export const Account = (props: {roleFN: Function}) => {
           <div className="control">
             <button
               className="button is-link is-light is-rounded"
-              onClick={() => setState(AccountState.CREATE)}
-            >
+              onClick={() => setState(AccountState.CREATE)}>
               Sign Up
             </button>
           </div>
           </div>
         </div>
+        <div className="block"></div>
+        <div className="columns is-centered is-vcentered">
+        <div className="control">
+            <button className="button is-warning is-light is-rounded"
+            onClick={(e) => handlePasswordReset(e)}>
+              Forget Password
+            </button>
+          </div>
+          </div>
     </form>
     </div>
     </div>

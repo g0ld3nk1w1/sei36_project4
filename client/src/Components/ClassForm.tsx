@@ -272,7 +272,7 @@ export const ClassForm = () => {
       <div className="column">
         <p className="title has-text-centered">Preview</p>
         <div className="columns is-centered">
-          {preview ? <EClass item={{...classDraft, ...override ,enrollmentNum:0, }}/> : ""} 
+          {preview ? <EClass item={{...classDraft, ...override ,enrollmentNum:0}}/> : ""} 
         </div>
       </div>
     </>

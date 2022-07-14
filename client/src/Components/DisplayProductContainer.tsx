@@ -7,7 +7,7 @@ export const ProductContainer = () => {
   const [allProducts, setAllProducts] = useState(Array<IProduct>);
   //Pull and maps out all relevant products
   useEffect(() => {
-    axios.get("/product")
+    axios.get("/product/display")
     .then(res => setAllProducts(res.data.product));
   },[])
 
@@ -17,7 +17,6 @@ export const ProductContainer = () => {
             <p className="title block is-vcentered"> Products</p>
    <div className="columns is-vcentered is-multiline">
     {allProducts
-    .filter(ele => ele.isDisplayed && ele.isActive)
     .map((ele : IProduct, i) => {
     return (
     <div className="column is-3" key={i}> <Product item={ele}/> </div>)})}

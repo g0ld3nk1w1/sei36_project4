@@ -5,15 +5,28 @@ import Eclass from "./EclassModel";
 export const eClassController = express.Router();
 
 // might need to populate some fields
-eClassController.get("/", async (req, res) => {
+eClassController.get("/display", async (req, res)=> {
+    try {
+       const search = await Eclass.find({isDisplayed: true});
+      if(search.length === 0){
+          return res.status(StatusCodes.ACCEPTED).send({message: "No active class found"});
+      }
+      if(search !== null){
+          res.status(StatusCodes.OK).send({message: "Active Class or classes found", class: search});
+      } else res.status(StatusCodes.ACCEPTED).send({message: "No class found"});
+    } catch (err) {
+      res.status(StatusCodes.BAD_REQUEST).send({ message: err });
+    }
+})
+
+eClassController.post("/search", async (req, res) => {
   const { body } = req;
   let search;
   try {
     if (body.id) {
       search = await Eclass.findById(body.id);
     } else {
-      search = await Eclass.find({...body,
-    isDisplayed: true});
+      search = await Eclass.find(body);
     if(search.length === 0){
         return res.status(StatusCodes.ACCEPTED).send({message: "No active class found"});
     }

@@ -11,8 +11,8 @@ export interface IProduct {
     imgurl: string[],
     qty: number,
     cost: number,
-    isActive: boolean,
-    isDisplayed: boolean,
+    isActive?: boolean,
+    isDisplayed?: boolean,
     _id: string
 }
 
