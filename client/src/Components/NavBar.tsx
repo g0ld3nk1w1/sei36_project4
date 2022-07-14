@@ -28,6 +28,7 @@ export const NavBar = () => {
       (<div className="navbar-item has-dropdown is-hoverable is-mega">
       <button className="navbar-item button is-primary">Profile </button>
       <div className="navbar-dropdown"> 
+      <div className="navbar-item">{loggedIn}</div>
       <Link to="/" className="navbar-item">Orders</Link>
       <Link to="/" className="navbar-item">Logout</Link>
       </div>

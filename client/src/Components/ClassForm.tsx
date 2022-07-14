@@ -177,7 +177,7 @@ export const ClassForm = () => {
                 <input
                   className="input"
                   type="text"
-                  placeholder="Input price for e.g. 9.99"
+                  placeholder="Input price e.g. 9.99"
                   onChange={(e) => {classDraft.cost = Number.parseInt(e.target.value)}}
                 />
               </div>
