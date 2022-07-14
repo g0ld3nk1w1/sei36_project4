@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const ProductForm = () => {
     const [prodDraft, setProdDraft] = useState({
@@ -8,11 +8,16 @@ export const ProductForm = () => {
         cost: 0.0
     });
 
+  const handleFormSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(prodDraft);
+  }
+
   return (
     <>
       <div className="column">
         <section className="hero box">
-          <form>
+          <form onSubmit={handleFormSubmit}>
             <div className="field">
               <label className="label">Name of Product</label>
               <div className="control">
@@ -51,7 +56,7 @@ export const ProductForm = () => {
             <div className="field">
               <label className="label">Quantity</label>
               <div className="control">
-              <input className="level-item" type="number" min={0}
+              <input className="input" type="number" min={0}
             onChange={(e) => { prodDraft.qty = Number.parseInt(e.target.value)}}></input>
               </div>
             </div>

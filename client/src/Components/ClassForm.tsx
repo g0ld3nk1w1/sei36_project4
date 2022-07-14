@@ -92,31 +92,51 @@ export const ClassForm = () => {
               </div>
             </div>
 
-        <div className="level field">
-            <label className="label level-item">Minimum to start: </label>
+        <div className="field is-horizontal">
+        <div className="field-label is-normal">
+            <label className="label">Minimum to start: </label>
+            </div>
+            <div className="field-body">
+          <div className="field is-narrow" >
             <div className="control">
-            <input className="level-item" type="number" min={0} 
+            <input className="input" type="number" min={0} 
             onChange={(e) => { classDraft.min = Number.parseInt(e.target.value)}}></input>
             </div>
+            </div></div>
 
-
-            <label className="label level-item">Maximum Capacity: </label>
+            <div className="field-label is-normal">
+            <label className="label">Maximum Capacity: </label>
+            </div>
+            
+            <div className="field-body">
+          <div className="field is-narrow">
             <div className="control">
-            <input className="level-item" type="number" min={0}
+            <input className="input" type="number" min={0}
             onChange={(e) => { classDraft.max = Number.parseInt(e.target.value)}}></input>
             </div>
+            </div></div>
         </div>
 
-        <div className="level field">
-        <label className="label level-item">Duration:</label>
+        <div className="field is-horizontal">
+        <div className="field-label is-normal">
+        <label className="label">Duration:</label>
+        </div>
+        <div className="field-body">
+          <div className="field is-narrow">
             <div className="control">
-            <input className="level-item" type="number" min={0}
+            <input className="input" type="number" min={0}
             onChange={(e) => { classDraft.duration = Number.parseInt(e.target.value)}}></input>
             </div>
+            </div>
+            </div>
 
-            <label className="label level-item">Duration Unit:</label>
+            <div className="field-label is-normal">
+            <label className="label">Duration Unit:</label>
+            </div>
+            <div className="field-body">
+          <div className="field ">
             <div className="control">
-            <div className="select">
+            <div className="select is-fullwidth">
             <select onChange={e => classDraft.durationUnit = e.currentTarget.value}>
                     <option>Select unit</option>
                     <option value={Dunit.HOURS}>Hours</option>
@@ -125,11 +145,13 @@ export const ClassForm = () => {
                   </select>
             </div>
             </div>
+            </div>
+            </div>
         </div>
 
         <div className="level field">
+        <label className="label">Class Start Date:</label>
             <div className="control">
-                <label className="label">Class Start Date</label>
                 <DateTimePicker 
                 onChange={inputDate => {
                     const newDate = {startDate: inputDate, endDate: classDraft.classDate[0].endDate};
@@ -139,9 +161,8 @@ export const ClassForm = () => {
                 disableClock={true} />
         </div>
 
-        
+        <label className="label">Class End Date:</label>
             <div className="control">
-            <label className="label">Class End Date</label>
             <DateTimePicker 
                 onChange={inputDate => {
                     const newDate = {startDate: classDraft.classDate[0].endDate, endDate: inputDate};
@@ -153,17 +174,15 @@ export const ClassForm = () => {
         </div>
 
         <div className="level">
-
+        <label className="label">Registration Date:</label>
             <div className="control">
-                <label className="label">Registration Date</label>
                 <DateTimePicker onChange={inputDate => setClassDraft({...classDraft,registrationDate: inputDate})}
                 value={classDraft.registrationDate}
                 disableClock={true} />
         </div>
         
-
+        <label className="label">Closing Date:</label>
             <div className="control">
-                <label className="label">Closing Date</label>
                 <DateTimePicker onChange={inputDate => setClassDraft({...classDraft,closingDate: inputDate})}
                                 value={classDraft.closingDate}
                                 disableClock={true} />
