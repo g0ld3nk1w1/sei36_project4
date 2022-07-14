@@ -3,8 +3,8 @@ import mongoose, { Schema } from "mongoose";
 const productSchema = new Schema({
     name: {type: String, unique: true, required: true},
     imgurl: [String],
-    qty: {Number, min: 0, default: 0},
-    cost: {Number, default: 0.0},
+    qty: {type: Number, min: 0, default: 0},
+    cost: {type: Number, default: 0.0},
     isActive: {type: Boolean, default: true},
     isDisplayed: {type: Boolean, default: false}
 })

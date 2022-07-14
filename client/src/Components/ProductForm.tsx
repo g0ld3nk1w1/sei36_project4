@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, {useState } from "react";
+import { Product } from "./ProductCard";
 
 export const ProductForm = () => {
     const [prodDraft, setProdDraft] = useState({
@@ -7,10 +9,20 @@ export const ProductForm = () => {
         qty: 0,
         cost: 0.0
     });
+    const [preview, setPreview] = useState(false);
 
   const handleFormSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(prodDraft);
+    axios.post("/api/product",{
+      ...prodDraft,
+      isDisplayed: true
+    })
+    .catch(err => alert("Failed to create product!"));
+  }
+
+  const handlePreview = (event: React.MouseEvent) =>{
+    event.preventDefault();
+    setPreview(true);
   }
 
   return (
@@ -63,11 +75,11 @@ export const ProductForm = () => {
 
             <div className="field is-grouped is-grouped-right ">
               <div className="control">
-                <button className="button is-link is-light">Preview</button>
+                <button className="button is-link is-light" onClick={(e) => handlePreview(e)}>Preview</button>
               </div>
-              <div className="control">
+              {/* <div className="control">
                 <button className="button is-link is-light">Save</button>
-              </div>
+              </div> */}
               <div className="control">
                 <button type="submit" className="button is-link is-light">
                   Publish
@@ -79,10 +91,9 @@ export const ProductForm = () => {
       </div>
       <div className="column">
         <p className="title has-text-centered">Preview</p>
-        <section className="hero">
-          <div className="hero-body"></div>
-          {/* <EclassName item={{...classDraft, enrollmentNum:0}}/> */}
-        </section>
+        <div className="columns is-centered">
+          {preview ? <Product item={{...prodDraft,isActive: true, isDisplayed: true, _id:"1234"}}/>: ""}
+          </div>
       </div>
     </>
   );

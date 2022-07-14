@@ -59,7 +59,7 @@ productController.delete("/:id",async (req, res) => {
     const {id} = req.params;
     try {
         const oldDoc = await Product.findByIdAndUpdate(id, {
-            isActive: false
+            isDisplayed: false
         });
         res.status(StatusCodes.OK).send({data: oldDoc})
     } catch (err){

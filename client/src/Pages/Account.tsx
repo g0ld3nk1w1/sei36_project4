@@ -38,7 +38,7 @@ export const Account = (props: {roleFN: Function}) => {
       userObj.role = ROLE.CONSUMER;
       setUserObj(userObj);
     } 
-    axios.post("/api/user", userObj).then((res) => {
+    axios.post("/user", userObj).then((res) => {
       alert("Account Creation Succes, Try Logging in!");
       setState(AccountState.LOGIN);
     }).catch(err => {
@@ -47,7 +47,7 @@ export const Account = (props: {roleFN: Function}) => {
   };
   const handleLogin = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post("/api/user/search", {
+    axios.post("/user/search", {
       username: userObj.username,
       password: userObj.password
     }).then(res => {

@@ -9,7 +9,7 @@ export const ClassContainer = () => {
   const [classList, setClassList] = useState(Array<IClass>);
   //Pull and maps out all relevant products
   useEffect(() => {
-    axios.get("/api/class")
+    axios.get("/class")
     .then(res => setClassList(res.data.class));
   },[])
 
