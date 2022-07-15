@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import { ClassForm } from './Components/ClassForm';
 import { NavBar } from './Components/NavBar';
+import { ProductEdit } from './Components/ProductEdit';
 import { ProductForm } from './Components/ProductForm';
 import { ROLE, UserContext } from './Components/RoleContext';
 import { Account } from './Pages/Account';
@@ -24,8 +25,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing />}/>
         <Route path='/class' element={<Landing toggle={"class"} />}/>
-        {/* <Route path='/class/:id' element={role? <DetailPage toggle={"class"}/> : <Account roleFN={setRole} />} /> */}
+        <Route path='/class/:id' element={role? <DetailPage toggle={"class"}/> : <Account roleFN={setRole} />} />
         <Route path='/product' element={<Landing toggle={"product"}/>}/>
+        <Route path='/product/:id' element={role? <DetailPage toggle={"product"}/> : <Account roleFN={setRole} />} />
+        <Route path='/product/edit/:id' element={role? <ProductEdit /> : <Account roleFN={setRole} />} />
         <Route path="/login" element={<Account roleFN={setRole}/>} />
         <Route path="/create" element={isUserAI? <Creation /> : <Landing />}>
           <Route path="class" element={<ClassForm />}/>

@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { ROLE, UserContext } from "../Components/RoleContext";
 
 enum Type {
   PRODUCT,
   CLASS,
-  NONE
+  NONE,
+  USER
 }
 
 //Product or Class creation page
 export const Creation = () => {
   const [type, setType] = useState(Type.NONE);
+  const userRole = useContext(UserContext);
 
   const isActive = (input: Type) => (type === input ? "is-active" : "");
 
@@ -30,6 +33,12 @@ export const Creation = () => {
               <span>Product</span>
             </Link>
           </li>
+          {userRole===ROLE.ADMIN? 
+          <li className={isActive(Type.USER)}>
+            <Link to="#" onClick={() => setType(Type.USER)}>
+              <span>User</span>
+            </Link>
+          </li> : ""}
         </ul>
       </div>
       <div className="columns">

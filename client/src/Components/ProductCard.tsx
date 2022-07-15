@@ -49,7 +49,9 @@ export const Product = (props: {item : IProduct}) => {
     </div>) :""}
     <footer className="card-footer">
     {isUserAI? 
-    <Link to= "/" className="card-footer-item" onClick={() => handleUnpublish(props.item._id)}>Unlist</Link> : "" }
+    (<><Link to= "/" className="card-footer-item" onClick={() => handleUnpublish(props.item._id)}>Unlist</Link>
+    <Link to= {`/product/edit/${props.item._id}`} className="card-footer-item">Edit</Link></>): "" }
+    <Link to= {`/product/${props.item._id}`} className="card-footer-item">Details</Link>
     <Link to= "/" className="card-footer-item">Add to Cart</Link>
     </footer>
   </div>
