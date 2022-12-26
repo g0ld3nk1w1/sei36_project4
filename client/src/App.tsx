@@ -25,7 +25,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing />}/>
         <Route path='/class' element={<Landing toggle={"class"} />}/>
-        <Route path='/class/:id' element={role? <DetailPage toggle={"class"}/> : <Account roleFN={setRole} />} />
+        {/* <Route path='/class/:id' element={role? <DetailPage toggle={"class"}/> : <Account roleFN={setRole} />} /> */}
+        <Route path='/class/:id' element={<DetailPage toggle={"class"}/>} />
         <Route path='/product' element={<Landing toggle={"product"}/>}/>
         <Route path='/product/:id' element={role? <DetailPage toggle={"product"}/> : <Account roleFN={setRole} />} />
         <Route path='/product/edit/:id' element={role? <ProductEdit /> : <Account roleFN={setRole} />} />

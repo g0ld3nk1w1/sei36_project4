@@ -70,7 +70,7 @@ export const ClassForm = () => {
     }).then( res => {alert("Class Published!"); nav("/class")})
     .catch(err => alert("Failed to create class!"));
   }
-  
+  //Need to apply required to certain fields.
   return (
     <>
       <div className="column">
